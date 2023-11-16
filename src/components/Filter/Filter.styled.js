@@ -19,6 +19,7 @@ export const FilterWrap = styled.div`
     width: 250px;
     height: 26px;
     outline: none;
+    border-radius: 5px;
 
     &:focus {
       outline: 1px solid rgba(0, 255, 255);

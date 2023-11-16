@@ -1,41 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TitlePhonebook } from './TitlePhonebook/TitlePhonebook';
 import { TitleContacts } from './TitleContacts/TitleContacts';
-import { Application } from './App.styled';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-// import { useSelector} from 'react-redux';
+import { Container } from './Container/Container.styled';
+import { Section } from './Section/Section.styled';
+import { Loader } from './Loader/loader';
+import { selectContactError, selectContactIsLoading } from 'redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import ErrMessage from './ErrMessage/ErrMessage';
+import { fetchContacts } from '../redux/operations';
 
 export const App = () => {
-  // const contacts = useSelector(state => state.contacts.contacts)
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectContactIsLoading);
+  const error = useSelector(selectContactError);
 
-  // const [filter, setFilter] = useState('');
-
-  // useEffect(() => {
-  //   localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts]);
-
-  // const changeInput = input => {
-  //   setFilter(input.value);
-  // };
-
-  // const findContact = () => {
-  //   const filterContact = contacts.filter(({ name }) => {
-  //     return name.includes(filter);
-  //   });
-  //   return filterContact;
-  // };
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
-    <Application>
-      <TitlePhonebook title="Phonebook" />
-      <ContactForm />
-      <TitleContacts title="Contacts" />
-      <Filter />
-      <ContactList
-      // onfindContact={findContact}
-      />
-    </Application>
+    <Container>
+      <Section>
+        <TitlePhonebook title="Phonebook" />
+        <ContactForm />
+      </Section>
+      <Section>
+        <TitleContacts title="Contacts" />
+        <Filter />
+        <ContactList />
+        {isLoading && <Loader />}
+        {error && <ErrMessage />}
+      </Section>
+    </Container>
   );
 };

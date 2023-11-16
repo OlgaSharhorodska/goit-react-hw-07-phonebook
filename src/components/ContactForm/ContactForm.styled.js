@@ -1,13 +1,14 @@
 import styled from 'styled-components';
+import { Field, Form } from 'formik';
 
-export const Form = styled.form`
+export const FormEl = styled(Form)`
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
   border: 1px solid black;
-  width: 400px;
+  width: 500px;
   padding: 20px 15px;
   border-radius: 8px;
+  background-color: #fff;
 
   label {
     font-weight: 500;
@@ -19,6 +20,7 @@ export const Form = styled.form`
     height: 26px;
     margin-bottom: 30px;
     outline: none;
+    margin-right: 10px;
 
     &:focus {
       outline: 1px solid rgba(0, 255, 255);
@@ -43,4 +45,7 @@ export const Form = styled.form`
       }
     }
   }
+`;
+export const FieldEl = styled(Field)`
+  display: inline;
 `;
